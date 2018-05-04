@@ -1,52 +1,59 @@
-const electron = require('electron')
+const electron = require("electron");
 
-const app = electron.app
+const app = electron.app;
 
-const BrowserWindow = electron.BrowserWindow
+const BrowserWindow = electron.BrowserWindow;
 
-if (process.env.NODE_ENV === 'development') {
-  require('electron-reload')(__dirname, {
+if (process.env.NODE_ENV === "development") {
+  require("electron-reload")(__dirname, {
     electron: require(`${__dirname}/node_modules/electron`)
-  })
+  });
 }
 
-let mainWindow
+let mainWindow;
 
-function createWindow () {
+function createWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600, icon: './cpu.png'})
+  mainWindow = new BrowserWindow({
+    width: 1000,
+    height: 800,
+    icon: "./cpu.png"
+  });
 
   // and load the index.html of the app.
-  if (process.env.NODE_ENV === 'development') {
-    mainWindow.loadURL(`http://localhost:3000`)
-  } else {
-    mainWindow.loadURL(`file://${__dirname}/index.html`)
-  }
+  // if (process.env.NODE_ENV === 'development') {
+  //   mainWindow.loadURL(`http://localhost:3000`)
+  // } else {
+  //   mainWindow.loadURL(`file://${__dirname}/index.html`)
+  // }
+
+  //   mainWindow.loadURL(`file://${__dirname}/index.html`)
+  mainWindow.loadURL(`https://ui.itc3.io`);
 
   // Open the DevTools.
-  if (process.env.NODE_ENV === 'development') {
-    mainWindow.webContents.openDevTools()
+  if (process.env.NODE_ENV === "development") {
+    mainWindow.webContents.openDevTools();
   }
 
   // Emitted when the window is closed.
-  mainWindow.on('closed', function () {
-    mainWindow = null
-  })
+  mainWindow.on("closed", function() {
+    mainWindow = null;
+  });
 }
 
 // This method will be called when Electron has finished
-app.on('ready', createWindow)
+app.on("ready", createWindow);
 
 // Quit when all windows are closed.
-app.on('window-all-closed', function () {
+app.on("window-all-closed", function() {
   // On OS X it is common for applications and their menu bar
-  if (process.platform !== 'darwin') {
-    app.quit()
+  if (process.platform !== "darwin") {
+    app.quit();
   }
-})
+});
 
-app.on('activate', function () {
+app.on("activate", function() {
   if (mainWindow === null) {
-    createWindow()
+    createWindow();
   }
-})
+});
